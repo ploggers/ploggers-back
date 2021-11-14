@@ -18,6 +18,7 @@ import { Events } from './Events';
 import { Follows } from './Follows';
 import { Locations } from './Locations';
 import { Manages } from './Manages';
+import { Users } from './Users';
 
 @Entity({ schema: 'ploggers', name: 'crews' })
 export class Crews {
@@ -86,7 +87,7 @@ export class Crews {
 
   @ManyToMany(() => Badges)
   @JoinTable({
-    name: 'crewBadges',
+    name: 'crew_badges',
     joinColumn: {
       name: 'CrewId',
       referencedColumnName: 'id',
@@ -97,4 +98,18 @@ export class Crews {
     },
   })
   MyBadges: Badges[];
+
+  @ManyToMany(() => Users)
+  @JoinTable({
+    name: 'join_requests',
+    joinColumn: {
+      name: 'CrewId',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'UserId',
+      referencedColumnName: 'id',
+    },
+  })
+  JoinRequests: Users[];
 }

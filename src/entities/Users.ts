@@ -22,6 +22,7 @@ import { Follows } from './Follows';
 import { Manages } from './Manages';
 import { Locations } from './Locations';
 import { Badges } from './Badges';
+import { Crews } from './Crews';
 
 @Index('email', ['email'], { unique: true })
 @Entity({ schema: 'ploggers', name: 'users' })
@@ -142,7 +143,7 @@ export class Users {
 
   @ManyToMany(() => Badges)
   @JoinTable({
-    name: 'userBadges',
+    name: 'user_badges',
     joinColumn: {
       name: 'UserId',
       referencedColumnName: 'id',
@@ -153,4 +154,7 @@ export class Users {
     },
   })
   MyBadges: Badges[];
+
+  @ManyToMany(() => Crews, (crews) => crews.JoinRequests)
+  Crew: Crews[];
 }
