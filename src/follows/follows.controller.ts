@@ -36,7 +36,7 @@ export class FollowsController {
   @ApiOperation({ summary: '마이 크루 조회하기' })
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getAllFollowingCrews(@Request() req) {
+  async getMyCrews(@Request() req) {
     const userId = req.user.id;
     return await this.followService.getMyCrews(userId);
   }

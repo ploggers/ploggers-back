@@ -16,8 +16,8 @@ import {
 import { Badges } from './Badges';
 import { Events } from './Events';
 import { Follows } from './Follows';
+import { JoinRequests } from './Join.Requests';
 import { Locations } from './Locations';
-import { Manages } from './Manages';
 import { Users } from './Users';
 
 @Entity({ schema: 'ploggers', name: 'crews' })
@@ -63,6 +63,17 @@ export class Crews {
   @Column('varchar', { name: 'text', nullable: true })
   text: string | null;
 
+  @IsString()
+  @ApiProperty({
+    example: '서강대학교',
+    description: '크루 소속 대학교',
+  })
+  @Column('varchar', { name: 'school', nullable: true })
+  school: string | null;
+
+  @OneToMany(() => Users, (users) => users.Leads)
+  Leader: Users;
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -75,11 +86,11 @@ export class Crews {
   @OneToMany(() => Follows, (follows) => follows.FollowCrew)
   Follows: Follows[];
 
-  @OneToMany(() => Manages, (manages) => manages.ManageCrew)
-  Manages: Manages[];
-
   @OneToMany(() => Events, (events) => events.Crew)
   Events: Events[];
+
+  @OneToMany(() => JoinRequests, (JoinRequests) => JoinRequests.RequestCrew)
+  Requests: JoinRequests[];
 
   @OneToOne(() => Locations)
   @JoinColumn()
@@ -99,17 +110,17 @@ export class Crews {
   })
   MyBadges: Badges[];
 
-  @ManyToMany(() => Users)
-  @JoinTable({
-    name: 'join_requests',
-    joinColumn: {
-      name: 'CrewId',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'UserId',
-      referencedColumnName: 'id',
-    },
-  })
-  JoinRequests: Users[];
+  // @ManyToMany(() => Users)
+  // @JoinTable({
+  //   name: 'join_requests',
+  //   joinColumn: {
+  //     name: 'CrewId',
+  //     referencedColumnName: 'id',
+  //   },
+  //   inverseJoinColumn: {
+  //     name: 'UserId',
+  //     referencedColumnName: 'id',
+  //   },
+  // })
+  // JoinRequests: Users[];
 }

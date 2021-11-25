@@ -19,10 +19,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Follows } from './Follows';
-import { Manages } from './Manages';
 import { Locations } from './Locations';
 import { Badges } from './Badges';
 import { Crews } from './Crews';
+import { JoinRequests } from './Join.Requests';
 
 @Index('email', ['email'], { unique: true })
 @Entity({ schema: 'ploggers', name: 'users' })
@@ -124,8 +124,11 @@ export class Users {
   @OneToMany(() => Follows, (follows) => follows.Follower)
   Follows: Follows[];
 
-  @OneToMany(() => Manages, (manages) => manages.Manager)
-  Manages: Manages[];
+  @OneToMany(() => Crews, (crews) => crews.Leader)
+  Leads: Crews[];
+
+  @OneToMany(() => JoinRequests, (joinRequests) => joinRequests.Request)
+  Requests: JoinRequests[];
 
   @ManyToMany(() => Locations, (locations) => locations.Belongers)
   @JoinTable({
@@ -155,6 +158,6 @@ export class Users {
   })
   MyBadges: Badges[];
 
-  @ManyToMany(() => Crews, (crews) => crews.JoinRequests)
-  Crew: Crews[];
+  // @ManyToMany(() => Crews, (crews) => crews.JoinRequests)
+  // Crew: Crews[];
 }

@@ -8,6 +8,7 @@ import { Follows } from 'src/entities/Follows';
 import { Locations } from 'src/entities/Locations';
 import { Manages } from 'src/entities/Manages';
 import { Users } from './src/entities/Users';
+import { JoinRequests } from './src/entities/Join.Requests';
 
 dotenv.config();
 const config: TypeOrmModuleOptions = {
@@ -26,6 +27,7 @@ const config: TypeOrmModuleOptions = {
     Follows,
     Manages,
     Locations,
+    JoinRequests,
   ],
   migrations: [__dirname + '/src/migrations/*.ts'],
   cli: { migrationsDir: 'src/migrations' },
