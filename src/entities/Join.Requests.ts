@@ -29,17 +29,17 @@ export class JoinRequests {
   @Column('int', { primary: true, name: 'CrewId' })
   CrewId: number;
 
-  @ManyToOne(() => Users, (users) => users.Manages, {
+  @ManyToOne(() => Users, (users) => users.Requests, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
   @JoinColumn([{ name: 'UserId', referencedColumnName: 'id' }])
-  Request: Users;
+  request: Users;
 
-  @ManyToOne(() => Crews, (crews) => crews.Manages, {
+  @ManyToOne(() => Crews, (crews) => crews.Requests, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
   @JoinColumn([{ name: 'CrewId', referencedColumnName: 'id' }])
-  RequestCrew: Crews;
+  requestCrew: Crews;
 }

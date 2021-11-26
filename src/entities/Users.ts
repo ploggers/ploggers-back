@@ -124,10 +124,7 @@ export class Users {
   @OneToMany(() => Follows, (follows) => follows.Follower)
   Follows: Follows[];
 
-  @OneToMany(() => Crews, (crews) => crews.Leader)
-  Leads: Crews[];
-
-  @OneToMany(() => JoinRequests, (joinRequests) => joinRequests.Request)
+  @OneToMany(() => JoinRequests, (joinRequests) => joinRequests.request)
   Requests: JoinRequests[];
 
   @ManyToMany(() => Locations, (locations) => locations.Belongers)

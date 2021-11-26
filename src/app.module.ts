@@ -10,8 +10,6 @@ import { AuthModule } from './auth/auth.module';
 import { EventsModule } from './events/events.module';
 import { FollowsModule } from './follows/follows.module';
 import { CrewsModule } from './crews/crews.module';
-import { RequestsController } from './requests/requests.controller';
-import { RequestsService } from './requests/requests.service';
 import { RequestsModule } from './requests/requests.module';
 
 @Module({

@@ -6,9 +6,9 @@ import { Crews } from 'src/entities/Crews';
 import { Events } from 'src/entities/Events';
 import { Follows } from 'src/entities/Follows';
 import { Locations } from 'src/entities/Locations';
-import { Manages } from 'src/entities/Manages';
 import { Users } from './src/entities/Users';
 import { JoinRequests } from './src/entities/Join.Requests';
+import { CrewBadges } from 'src/entities/Crew.Badges';
 
 dotenv.config();
 const config: TypeOrmModuleOptions = {
@@ -25,9 +25,9 @@ const config: TypeOrmModuleOptions = {
     Users,
     Events,
     Follows,
-    Manages,
     Locations,
     JoinRequests,
+    CrewBadges,
   ],
   migrations: [__dirname + '/src/migrations/*.ts'],
   cli: { migrationsDir: 'src/migrations' },

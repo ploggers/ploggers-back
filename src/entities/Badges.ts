@@ -6,10 +6,11 @@ import {
   DeleteDateColumn,
   Entity,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Crews } from './Crews';
+import { CrewBadges } from './Crew.Badges';
 import { Users } from './Users';
 
 @Entity({ schema: 'ploggers', name: 'badges' })
@@ -54,6 +55,6 @@ export class Badges {
   @ManyToMany(() => Users, (users) => users.MyBadges)
   User: Users[];
 
-  @ManyToMany(() => Crews, (crews) => crews.MyBadges)
-  Crew: Crews[];
+  @OneToMany(() => CrewBadges, (crewBadges) => crewBadges.badge)
+  crewBadges: CrewBadges[];
 }

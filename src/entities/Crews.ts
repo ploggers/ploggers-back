@@ -14,6 +14,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Badges } from './Badges';
+import { CrewBadges } from './Crew.Badges';
 import { Events } from './Events';
 import { Follows } from './Follows';
 import { JoinRequests } from './Join.Requests';
@@ -71,9 +72,6 @@ export class Crews {
   @Column('varchar', { name: 'school', nullable: true })
   school: string | null;
 
-  @OneToMany(() => Users, (users) => users.Leads)
-  Leader: Users;
-
   @CreateDateColumn()
   createdAt: Date;
 
@@ -89,26 +87,24 @@ export class Crews {
   @OneToMany(() => Events, (events) => events.Crew)
   Events: Events[];
 
-  @OneToMany(() => JoinRequests, (JoinRequests) => JoinRequests.RequestCrew)
+  @IsString()
+  @ApiProperty({
+    example: '김홍엽',
+    description: '크루 리더',
+  })
+  @OneToOne(() => Users)
+  @JoinColumn()
+  leader: Users;
+
+  @OneToMany(() => JoinRequests, (joinRequests) => joinRequests.requestCrew)
   Requests: JoinRequests[];
 
   @OneToOne(() => Locations)
   @JoinColumn()
   location: Locations;
 
-  @ManyToMany(() => Badges)
-  @JoinTable({
-    name: 'crew_badges',
-    joinColumn: {
-      name: 'CrewId',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'BadgeId',
-      referencedColumnName: 'id',
-    },
-  })
-  MyBadges: Badges[];
+  @OneToMany(() => CrewBadges, (crewBadges) => crewBadges.badge)
+  crewBadges: CrewBadges[];
 
   // @ManyToMany(() => Users)
   // @JoinTable({

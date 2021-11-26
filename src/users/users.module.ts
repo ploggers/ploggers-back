@@ -9,7 +9,6 @@ import { Crews } from 'src/entities/Crews';
 import { Events } from 'src/entities/Events';
 import { Follows } from 'src/entities/Follows';
 import { Locations } from 'src/entities/Locations';
-import { Manages } from 'src/entities/Manages';
 import { Users } from 'src/entities/Users';
 @Module({
   imports: [
@@ -18,7 +17,6 @@ import { Users } from 'src/entities/Users';
       Badges,
       Crews,
       Locations,
-      Manages,
       Users,
       Events,
       Follows,

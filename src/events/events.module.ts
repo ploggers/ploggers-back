@@ -6,7 +6,6 @@ import { Crews } from 'src/entities/Crews';
 import { Events } from 'src/entities/Events';
 import { Follows } from 'src/entities/Follows';
 import { Locations } from 'src/entities/Locations';
-import { Manages } from 'src/entities/Manages';
 import { Users } from 'src/entities/Users';
 import { EventsController } from './events.controller';
 import { EventsService } from './events.service';
@@ -21,7 +20,6 @@ import { EventsService } from './events.service';
       Locations,
       Events,
       Follows,
-      Manages,
     ]),
   ],
   providers: [EventsService],
