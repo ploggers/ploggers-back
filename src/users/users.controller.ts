@@ -92,4 +92,14 @@ export class UsersController {
       })
       .send({ user: user });
   }
+
+  @ApiOperation({ summary: '내 크루 가져오기' })
+  @UseGuards(JwtAuthGuard)
+  @Get('mycrews')
+  async getMyCrews(@Request() req) {
+    const userId = req.user.id;
+    const result = await this.userService.getMyCrews(userId);
+    console.log(result);
+    return await this.userService.getMyCrews(userId);
+  }
 }

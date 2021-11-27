@@ -15,9 +15,20 @@ export class CrewsService {
   ) {}
 
   async getCrewInfo(crewId: number) {
-    return await this.crewRepository.findOne({
-      where: { id: crewId },
-    });
+    return await this.crewRepository
+      .createQueryBuilder('crews')
+      .innerJoinAndSelect('crews.leader', 'leader')
+      .innerJoinAndSelect('crews.location', 'location')
+      .where('crews.id = :crewId', { crewId })
+      .getMany();
+  }
+
+  async createCrew(crew: any) {
+    const newCrew = new Crews();
+    newCrew.name = crew.name;
+    newCrew.text = crew.text;
+    // newCrew.location = crew.location;
+    await this.crewRepository.save(newCrew);
   }
 
   async getAllCrewRanking() {
@@ -27,27 +38,45 @@ export class CrewsService {
   }
 
   async getSchoolRanking() {
-    const query = createQueryBuilder('crews')
-      .select('SUM(crews.crewScore)', 'sum_crewScore')
-      .groupBy('crews.school')
-      .orderBy('crews.crewScore', 'DESC');
+    const query = await createQueryBuilder('crews', 'c')
+      .select('SUM(c.crewScore)', 'sumScore')
+      .groupBy('c.school')
+      .getMany();
+    // .orderBy('c.crewScore', 'DESC');
 
-    const result = await query.getMany();
-    return result;
+    console.log(query);
+    return query;
   }
 
   async getCrewBadgesCount(crewId: number) {
-    const query = createQueryBuilder('crew_badges')
-      .select('COUNT(*) AS badgeCount')
-      .where('crew_badges.CrewId = :crewId', { crewId });
-
-    const result = await query.getOne();
-    return result;
+    return await this.crewBadgeRepository
+      .createQueryBuilder('crew_badges')
+      .innerJoin('crew_badges.crew', 'crew')
+      .addSelect('COUNT(*) AS badgesCount')
+      .where('crew.id = :crewId', { crewId })
+      .groupBy('crew.id')
+      .getOne();
   }
+  // async getCrewInfo(crewId: number) {
+  //   return await this.crewRepository
+  //     .createQueryBuilder('crews')
+  //     .innerJoinAndSelect('crews.leader', 'leader')
+  //     .innerJoinAndSelect('crews.location', 'location')
+  //     .where('crews.id = :crewId', { crewId })
+  //     .getMany();
+  // }
 
   async getCrewBadges(crewId: number) {
     return await this.crewBadgeRepository.find({
       where: { CrewId: crewId },
     });
+  }
+
+  async getCrewMembersCount(crewId: number) {
+    return await this.crewBadgeRepository
+      .createQueryBuilder('follows')
+      .select('COUNT(*) AS memberCount')
+      .where('follows.CrewId = :crewId', { crewId })
+      .getOne();
   }
 }

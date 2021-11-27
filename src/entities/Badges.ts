@@ -34,15 +34,6 @@ export class Badges {
   })
   category: 'personal' | 'crew' | null;
 
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: '"../assets/badges/***.png',
-    description: '배지 이미지 주소',
-  })
-  @Column('varchar', { name: 'image', length: 300 })
-  image: string;
-
   @CreateDateColumn()
   createdAt: Date;
 
