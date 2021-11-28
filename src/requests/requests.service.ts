@@ -10,7 +10,7 @@ export class RequestsService {
     private joinRequestRepository: Repository<JoinRequests>,
   ) {}
 
-  async joinRequest(crewId: number, userId: string) {
+  async joinRequest(crewId: string, userId: string) {
     return await this.joinRequestRepository.save({
       UserId: userId,
       CrewId: crewId,

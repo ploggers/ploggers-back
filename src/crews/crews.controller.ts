@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt.guard';
 import { CrewsService } from './crews.service';
@@ -27,35 +35,36 @@ export class CrewsController {
   @ApiOperation({ summary: '크루 생성하기' })
   @UseGuards(JwtAuthGuard)
   @Post()
-  async createCrew(@Body() data: any) {
-    return await this.crewService.createCrew(data);
+  async createCrew(@Body() data: any, @Request() req) {
+    const userId = req.user.id;
+    return await this.crewService.createCrew(data, userId);
   }
 
   @ApiOperation({ summary: '크루 정보 가져오기' })
   @UseGuards(JwtAuthGuard)
   @Get(':crewId')
-  async getCrewInfo(@Param('crewId') crewId: number) {
+  async getCrewInfo(@Param('crewId') crewId: string) {
     return await this.crewService.getCrewInfo(crewId);
   }
 
   @ApiOperation({ summary: '크루 배지 개수 가져오기' })
   @UseGuards(JwtAuthGuard)
   @Get(':crewId/badges-count')
-  async getCrewBadgesCount(@Param('crewId') crewId: number) {
+  async getCrewBadgesCount(@Param('crewId') crewId: string) {
     return await this.crewService.getCrewBadgesCount(crewId);
   }
 
   @ApiOperation({ summary: '크루 배지 정보 가져오기' })
   @UseGuards(JwtAuthGuard)
   @Get(':crewId/badges')
-  async getCrewBadges(@Param('crewId') crewId: number) {
+  async getCrewBadges(@Param('crewId') crewId: string) {
     return await this.crewService.getCrewBadges(crewId);
   }
 
   @ApiOperation({ summary: '크루원 수 가져오기' })
   @UseGuards(JwtAuthGuard)
   @Get(':crewId/members-count')
-  async getCrewMembersCount(@Param('crewId') crewId: number) {
+  async getCrewMembersCount(@Param('crewId') crewId: string) {
     return await this.crewService.getCrewMembersCount(crewId);
   }
 }

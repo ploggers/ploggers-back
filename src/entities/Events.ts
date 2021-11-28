@@ -69,8 +69,8 @@ export class Events {
   @Column('text', { name: 'text', nullable: true })
   text: string | null;
 
-  @Column('int', { name: 'CrewId', nullable: false })
-  CrewId: number;
+  @Column('varchar', { name: 'CrewId', nullable: false })
+  CrewId: string;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -11,6 +11,7 @@ import { EventsModule } from './events/events.module';
 import { FollowsModule } from './follows/follows.module';
 import { CrewsModule } from './crews/crews.module';
 import { RequestsModule } from './requests/requests.module';
+import { LocationsModule } from './locations/locations.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { RequestsModule } from './requests/requests.module';
     FollowsModule,
     CrewsModule,
     RequestsModule,
+    LocationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

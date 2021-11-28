@@ -109,8 +109,8 @@ export class Users {
     example: '1000',
     description: '사용자 개인 점수',
   })
-  @Column('int', { name: 'myScore', nullable: true })
-  myScore: number | null;
+  @Column('int', { name: 'myScore', nullable: false, default: 0 })
+  myScore: number | 0;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -123,6 +123,9 @@ export class Users {
 
   @OneToMany(() => Follows, (follows) => follows.Follower)
   Follows: Follows[];
+
+  @OneToMany(() => Crews, (crews) => crews.Leader)
+  Leads: Crews[];
 
   @OneToMany(() => JoinRequests, (joinRequests) => joinRequests.request)
   Requests: JoinRequests[];

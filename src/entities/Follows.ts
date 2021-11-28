@@ -26,8 +26,8 @@ export class Follows {
   @Column('varchar', { primary: true, name: 'UserId' })
   UserId: string;
 
-  @Column('int', { primary: true, name: 'CrewId' })
-  CrewId: number;
+  @Column('varchar', { primary: true, name: 'CrewId' })
+  CrewId: string;
 
   @ManyToOne(() => Users, (users) => users.Follows, {
     onDelete: 'CASCADE',

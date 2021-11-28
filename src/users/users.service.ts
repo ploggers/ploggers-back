@@ -82,11 +82,10 @@ export class UsersService {
   }
 
   async getMyCrews(UserId: string) {
-    // return await this.followsRepository.find({ where: { UserId: UserId } });
     return await this.followsRepository
       .createQueryBuilder('follows')
       .innerJoinAndSelect('follows.FollowCrew', 'myCrew')
-      .innerJoinAndSelect('myCrew.location', 'location')
+      .innerJoinAndSelect('myCrew.Location', 'location')
       .where('follows.UserId = :UserId', { UserId })
       .getMany();
   }

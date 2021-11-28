@@ -6,9 +6,11 @@ import {
   Entity,
   Index,
   ManyToMany,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Crews } from './Crews';
 import { Users } from './Users';
 
 @Index('dongCd', ['dongCd'], {})
@@ -46,4 +48,7 @@ export class Locations {
 
   @ManyToMany(() => Users, (users) => users.BelongLocations)
   Belongers: Users[];
+
+  @OneToMany(() => Crews, (crews) => crews.Location)
+  BelongCrews: Crews[];
 }

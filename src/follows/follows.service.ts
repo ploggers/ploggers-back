@@ -10,7 +10,7 @@ export class FollowsService {
     private followRepository: Repository<Follows>,
   ) {}
 
-  async registerCrew(crewId: number, userId: string) {
+  async registerCrew(crewId: string, userId: string) {
     return await this.followRepository.save({
       CrewId: crewId,
       UserId: userId,
@@ -24,7 +24,7 @@ export class FollowsService {
     });
   }
 
-  async unregisterCrew(CrewId: number, UserId: string) {
+  async unregisterCrew(CrewId: string, UserId: string) {
     this.followRepository.delete({
       CrewId: CrewId,
       UserId: UserId,

@@ -26,8 +26,8 @@ export class CrewBadges {
   @Column('varchar', { primary: true, name: 'BadgeId' })
   BadgeId: string;
 
-  @Column('int', { primary: true, name: 'CrewId' })
-  CrewId: number;
+  @Column('varchar', { primary: true, name: 'CrewId' })
+  CrewId: string;
 
   @ManyToOne(() => Badges, (badges) => badges.crewBadges, {
     onDelete: 'CASCADE',
