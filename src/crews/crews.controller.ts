@@ -51,6 +51,8 @@ export class CrewsController {
   @UseGuards(JwtAuthGuard)
   @Get(':crewId/badges-count')
   async getCrewBadgesCount(@Param('crewId') crewId: string) {
+    const result = this.crewService.getCrewBadgesCount(crewId);
+    console.log(result);
     return await this.crewService.getCrewBadgesCount(crewId);
   }
 

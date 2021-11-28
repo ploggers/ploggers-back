@@ -70,23 +70,27 @@ export class CrewsService {
     return await this.crewBadgeRepository
       .createQueryBuilder('crew_badges')
       .innerJoin('crew_badges.crew', 'crew')
-      .addSelect('COUNT(*) AS badgesCount')
+      .select('COUNT(*) AS badgesCount')
       .where('crew.id = :crewId', { crewId })
       .groupBy('crew.id')
       .getRawOne();
   }
 
   async getCrewBadges(crewId: string) {
-    return await this.crewBadgeRepository.find({
-      where: { CrewId: crewId },
-    });
+    return await this.crewBadgeRepository
+      .createQueryBuilder('crew_badges')
+      .innerJoinAndSelect('crew_badges.badge', 'badge')
+      .where('crew_badges.CrewId = :crewId', { crewId })
+      .getMany();
   }
 
   async getCrewMembersCount(crewId: string) {
-    return await this.crewBadgeRepository
+    return await this.followsRepository
       .createQueryBuilder('follows')
+      .innerJoin('follows.Follower', 'member')
       .select('COUNT(*) AS memberCount')
       .where('follows.CrewId = :crewId', { crewId })
-      .getOne();
+      .groupBy('follows.CrewId')
+      .getRawOne();
   }
 }

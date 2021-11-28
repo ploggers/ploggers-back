@@ -34,6 +34,23 @@ export class Badges {
   })
   category: 'personal' | 'crew' | null;
 
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
+    example: '북악산 배지',
+    description: '크루 이름',
+  })
+  @Column('varchar', { name: 'name', length: 30 })
+  name: string;
+
+  @IsString()
+  @ApiProperty({
+    example: '배지 설명',
+    description: '이것은 북악산 배지입니다.',
+  })
+  @Column('varchar', { name: 'text', nullable: true })
+  desc: string | null;
+
   @CreateDateColumn()
   createdAt: Date;
 
