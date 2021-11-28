@@ -58,10 +58,11 @@ export class CrewsService {
   async getSchoolRanking() {
     return await this.crewRepository
       .createQueryBuilder('crews')
-      .select('crews.school')
-      .addSelect('SUM(crews.crewScore)', 'schoolScore')
+      .select('crews.school as name')
+      .addSelect('SUM(crews.crewScore)', 'crewScore')
       .groupBy('crews.school')
-      .orderBy('schoolScore', 'DESC')
+      .orderBy('crewScore', 'DESC')
+      .where('crews.school != "학교미등록"')
       .getRawMany();
   }
 
